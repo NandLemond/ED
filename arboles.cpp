@@ -6,5 +6,6 @@ Arbol::Arbol(char valor){
   this -> valor = valor;
   this -> izqu = NULL;
   this -> dere = NULL;
+  this -> med = NULL;
 }
 

@@ -1,3 +1,7 @@
+#ifndef ARBOL_H_INCLUDED
+#define ARBOL_H_INCLUDED
+
+
 
 class Arbol
 {
@@ -11,5 +15,5 @@ class Arbol
     void recorridoPreorden(Arbol *raiz);
     void recorridoInorden(Arbol *raiz);
     void recorridoPosorden(Arbol *raiz);
-
 };
+#endif// ARBOL_H_INCLUDED 
