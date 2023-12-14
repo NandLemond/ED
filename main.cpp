@@ -56,22 +56,22 @@ int main() {
     arbolTernario->med->izqu->dere = new Arbol('N');
     arbolTernario->dere->izqu->izqu = new Arbol('L');
     arbolTernario->dere->izqu->dere = new Arbol('S'); 
-/*
+
     // Realizar recorridos
-    std::cout << "Recorrido Preorden: ";
+    cout << "Recorrido Preorden: ";
     recorridoPreorden(arbolTernario);
-    std::cout << std::endl;
+    std::cout << endl;
 
-    std::cout << "Recorrido Inorden: ";
+    cout << "Recorrido Inorden: ";
     recorridoInorden(arbolTernario);
-    std::cout << std::endl;
+    std::cout << endl; 
 
-    std::cout << "Recorrido Postorden: ";
+    cout << "Recorrido Postorden: ";
     recorridoPosorden(arbolTernario);
-    std::cout << std::endl;
+    cout << endl;
 
       return 0;
-      */
+      
 }
 
 
