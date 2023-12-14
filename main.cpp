@@ -3,6 +3,8 @@
 #include "arbol.h"
 using namespace std;
 
+int n_internos = 0;
+int n_hojas = 0;
 
 void recorridoPreorden(Arbol *raiz) {
     if (raiz == NULL) {
@@ -34,8 +36,38 @@ void recorridoPosorden(Arbol *raiz) {
     cout << raiz->valor << ",";
 }
 
+void  nodosInternos(Arbol *raiz){
+  if (raiz == NULL) {
+    return;
+  }
+  if (raiz->izqu != NULL || raiz->dere != NULL || raiz->med !=NULL){
+    cout << raiz->valor <<',';
+    n_internos++;
+  }
+
+  nodosInternos(raiz->izqu);
+  nodosInternos(raiz->med);
+  nodosInternos(raiz->dere);
+  
+}
+
+void nodosHoja(Arbol* raiz){
+  if (raiz == NULL) {
+    return;
+  }
+
+  if(raiz->izqu == NULL && raiz->dere == NULL && raiz->med == NULL){
+      cout<< raiz->valor << ',';
+      n_hojas++;
+  }
+
+  nodosHoja(raiz->izqu);
+  nodosHoja(raiz->med);
+  nodosHoja(raiz->dere);
+}
+
 int main() {
-    Arbol *arbolTernario = new Arbol('F');
+    Arbol* arbolTernario = new Arbol('F');
 
     arbolTernario->izqu = new Arbol('E');
     arbolTernario->med = new Arbol('D');
@@ -57,7 +89,7 @@ int main() {
     arbolTernario->dere->izqu->izqu = new Arbol('L');
     arbolTernario->dere->izqu->dere = new Arbol('S'); 
 
-    // Realizar recorridos
+ /*   // Realizar recorridos
     cout << "Recorrido Preorden: ";
     recorridoPreorden(arbolTernario);
     std::cout << endl;
@@ -69,7 +101,16 @@ int main() {
     cout << "Recorrido Postorden: ";
     recorridoPosorden(arbolTernario);
     cout << endl;
+*/
+    nodosInternos(arbolTernario);
+    cout<<endl;
+    cout<<"cantidad de nodos internos: "<<n_internos<<endl;
 
+    nodosHoja(arbolTernario);
+    cout<<endl;
+    cout<<"cantidad de nodos hoja: "<<n_hojas<<endl;
+
+    cout<<"total de nodos : "<<n_internos+n_hojas<<endl;
       return 0;
       
 }
