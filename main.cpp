@@ -1,12 +1,14 @@
 #include <iostream>
 #include <bits/stdc++.h>
 #include "arbol.h"
+using namespace std;
+
 
 void recorridoPreorden(Arbol *raiz) {
     if (raiz == NULL) {
         return;
     }
-    std::cout << raiz->valor << ",";
+    cout << raiz->valor << ",";
     recorridoPreorden(raiz->izqu);
     recorridoPreorden(raiz->med);
     recorridoPreorden(raiz->dere);
@@ -17,7 +19,7 @@ void recorridoInorden(Arbol *raiz) {
         return;
     }
     recorridoInorden(raiz->izqu);
-    std::cout << raiz->valor << ",";
+    cout << raiz->valor << ",";
     recorridoInorden(raiz->med);
     recorridoInorden(raiz->dere);
 }
@@ -29,7 +31,7 @@ void recorridoPosorden(Arbol *raiz) {
     recorridoPosorden(raiz->izqu);
     recorridoPosorden(raiz->med);
     recorridoPosorden(raiz->dere);
-    std::cout << raiz->valor << ",";
+    cout << raiz->valor << ",";
 }
 
 int main() {
@@ -54,7 +56,7 @@ int main() {
     arbolTernario->med->izqu->dere = new Arbol('N');
     arbolTernario->dere->izqu->izqu = new Arbol('L');
     arbolTernario->dere->izqu->dere = new Arbol('S'); 
-
+/*
     // Realizar recorridos
     std::cout << "Recorrido Preorden: ";
     recorridoPreorden(arbolTernario);
@@ -69,6 +71,7 @@ int main() {
     std::cout << std::endl;
 
       return 0;
+      */
 }
 
 
