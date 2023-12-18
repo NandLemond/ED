@@ -68,19 +68,6 @@ int main() {
     arbolTernario->dere->izqu->izqu->izqu = new Arbol('c');
 
 
- /*   // Realizar recorridos
-    cout << "Recorrido Preorden: ";
-    recorridoPreorden(arbolTernario);
-    std::cout << endl;
-
-    cout << "Recorrido Inorden: ";
-    recorridoInorden(arbolTernario);
-    std::cout << endl; 
-
-    cout << "Recorrido Postorden: ";
-    recorridoPosorden(arbolTernario);
-    cout << endl;
-*/
     nodosInternos(arbolTernario);
     cout<<endl;
     cout<<"cantidad de nodos internos: "<<n_internos<<endl;
