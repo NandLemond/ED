@@ -5,36 +5,25 @@
 using namespace std;
 
 Arbol* nodoBuscado;
-Arbol* nodoPadre;
-void recorridoPreorden(Arbol* raiz){
+
+int obtenerAltura(Arbol *raiz) {
   if (raiz == NULL){
-      return ;
+      return -1;
   }
 
-  cout << raiz->valor<< ';';
-  recorridoPreorden(raiz->izqu);
-  recorridoPreorden(raiz->med);
-  recorridoPreorden(raiz->dere);
-}
+  int alturaIzqu = obtenerAltura(raiz->izqu);
+  int alturaDere = obtenerAltura(raiz->dere); 
 
-void busqueda(Arbol* raiz, char letra, Arbol* padre ) {
-  if (raiz == NULL) {
-	return ;
+  if (alturaIzqu > alturaDere){
+      return alturaIzqu + 1;
   }
-
-  if (raiz->valor == letra) {
-      nodoBuscado = raiz;
-      nodoPadre = padre;
-      return;
+  else {
+      return alturaDere + 1;
   }
-
-  busqueda (raiz->izqu, letra,raiz);
-  busqueda (raiz->med, letra,raiz);
-  busqueda (raiz->dere, letra,raiz);
 }
 
 int main() {
-    char letra;
+    
     Arbol* arbolTernario = new Arbol('F');
 
     arbolTernario->izqu = new Arbol('E');
@@ -57,25 +46,7 @@ int main() {
     arbolTernario->med->izqu->dere = new Arbol('W');
     arbolTernario->dere->izqu->izqu = new Arbol('L');
     arbolTernario->dere->izqu->dere = new Arbol('S'); 
-    
-    cout<<"ingrese el nodo: ";
-    cin.get(letra);
-
-    busqueda(arbolTernario, letra,NULL);
-
-    if (nodoBuscado == NULL) {
-	cout<< "El nodo "<<letra << "no existe.";
-	return 0;
-    }
-    
-    if (nodoPadre == NULL) {
-	cout<<"El nodo: "<< letra <<" no tiene padre.";
-	cout<<endl;
-	return 0;
-    }
-    
-    cout<< "El padre de "  <<nodoBuscado->valor <<" es "<<nodoPadre->valor; 
-    cout<<endl;
+   
+    cout<<"La altura del Arbol es :" <<obtenerAltura(arbolTernario);
     return 0;
-
 }

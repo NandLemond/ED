@@ -1,20 +1,33 @@
+#include <array>
 #include <iostream>
 #include <bits/stdc++.h>
 #include "arbol.h"
 
 using namespace std;
 int cant = 0;
+char* arreglo = new char[100];
+int n_hojas=0;
+
 Arbol* nodoBuscado;
 Arbol* nodoPadre;
-void recorridoPreorden(Arbol* raiz){
-  if (raiz == NULL){
-      return ;
+
+void inicializar_Arreglo(int cant){
+  arreglo = new char[cant];
+}
+
+void nodosHoja(Arbol* raiz){
+  if (raiz == NULL) {
+    return;
   }
 
-  cout << raiz->valor<< ';';
-  recorridoPreorden(raiz->izqu);
-  recorridoPreorden(raiz->med);
-  recorridoPreorden(raiz->dere);
+  if(raiz->izqu == NULL && raiz->dere == NULL && raiz->med == NULL){
+      arreglo[n_hojas]=raiz->valor;
+      n_hojas++;
+  }
+
+  nodosHoja(raiz->izqu);
+  nodosHoja(raiz->med);
+  nodosHoja(raiz->dere);
 }
 
 void busqueda(Arbol* raiz, char letra, Arbol* padre) {
@@ -34,8 +47,39 @@ void busqueda(Arbol* raiz, char letra, Arbol* padre) {
   busqueda (raiz->dere, letra,raiz);
 }
 
+int obtenerAltura(Arbol *raiz) {
+  if (raiz == NULL){
+      return -1;
+  }
+
+  int alturaIzqu = obtenerAltura(raiz->izqu);
+  int alturaDere = obtenerAltura(raiz->dere); 
+
+  if (alturaIzqu > alturaDere){
+      return alturaIzqu + 1;
+  }
+  else {
+      return alturaDere + 1;
+  }
+}
+
+void equilibrio(Arbol* arbolTernario){
+  for(int i=0;i<n_hojas;i++){
+    busqueda(arbolTernario, arreglo[i],NULL);
+    cout<< "Nodo hoja " << arreglo[i] << ": ";
+    while(nodoPadre != NULL) {
+	//cout<< nodoPadre->valor << endl;
+	busqueda(arbolTernario, nodoPadre->valor,NULL);
+	cant++;
+    }
+    cout<<"altura es: "<<cant<<endl;
+    cant=0;
+  }
+}
+
+
 int main() {
-    char letra;
+    
     Arbol* arbolTernario = new Arbol('F');
 
     arbolTernario->izqu = new Arbol('E');
@@ -58,30 +102,18 @@ int main() {
     arbolTernario->med->izqu->dere = new Arbol('W');
     arbolTernario->dere->izqu->izqu = new Arbol('L');
     arbolTernario->dere->izqu->dere = new Arbol('S'); 
-    
-    cout<< "ingrese el nodo: ";
-    cin.get(letra);
-    busqueda(arbolTernario, letra,NULL);
    
-    if (nodoBuscado == NULL) {
-	cout<< "El nodo "<<letra << "  no existe."<<endl;
-	return 0;
-    }
-    
-    if (nodoPadre == NULL) {
-	cout << "El nodo "<<letra << " no tiene ascendetes."<<endl; 
-	return 0;
-    }
-    
-    cout<< "Los ascendetes del nodo " << letra << " son: ";
-    while(nodoPadre != NULL) {
-	cout<< nodoPadre->valor << ';';
-	busqueda(arbolTernario, nodoPadre->valor,NULL);
-	cant++;
-    }
+    cout<<"La altura del Arbol es :" <<obtenerAltura(arbolTernario);
+    nodosHoja(arbolTernario);
     cout<<endl;
-    //cout<<"n_ascendientes: "<<cant<<endl;
-
-       return 0;
+    for(int i=0;i<n_hojas;i++)
+      cout<<"valor: "<<arreglo[i]<<endl;
+    
+    cout<<endl;
+    cout<<endl;
+    
+    equilibrio(arbolTernario);  
+    return 0;
 
 }
+

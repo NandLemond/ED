@@ -63,14 +63,14 @@ int main() {
     busqueda(arbolTernario, letra);
 
     if (nodoBuscado == NULL) {
-	cout<< "El nodo "<<letra << "no existe.";
+	cout<< "El nodo "<< letra << "no existe.";
 	return 0;
     }
 
-    cout<< "los nodos desendientes de " << letra << "son: ";
+    cout<< "los nodos desendientes de " << letra << " son: ";
     recorridoPreorden(nodoBuscado->izqu);
     recorridoPreorden(nodoBuscado->med);
     recorridoPreorden(nodoBuscado->dere);
-
+    cout<<endl;
     return 0;
 }
