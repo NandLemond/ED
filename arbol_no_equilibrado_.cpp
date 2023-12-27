@@ -1,3 +1,4 @@
+
 #include <array>
 #include <iostream>
 #include <bits/stdc++.h>
@@ -90,28 +91,34 @@ void altura_nodos_hoja(Arbol* arbolTernario){
 
 int main() {
     
-    Arbol* arbolTernario = new Arbol('F');
+    Arbol* arbolTernario = new Arbol('W');
 
-    arbolTernario->izqu = new Arbol('E');
-    arbolTernario->med = new Arbol('D');
-    arbolTernario->dere = new Arbol('B');
+    arbolTernario->izqu = new Arbol('F');
+    arbolTernario->med = new Arbol('K');
+    arbolTernario->dere = new Arbol('R');
 
-    arbolTernario->izqu->izqu = new Arbol('R');
-    arbolTernario->izqu->med = new Arbol('Z');
-    arbolTernario->izqu->dere = new Arbol('N');
+    arbolTernario->izqu->izqu = new Arbol('N');
+    arbolTernario->izqu->med = new Arbol('A');
+    arbolTernario->izqu->dere = new Arbol('M');
     
-    arbolTernario->med->izqu = new Arbol('O');
-    arbolTernario->med->dere = new Arbol('I');
+    arbolTernario->med->izqu = new Arbol('D');
+    arbolTernario->med->dere = new Arbol('O');
 
-    arbolTernario->dere->izqu = new Arbol('A');
+    
     
     arbolTernario->izqu->izqu->izqu = new Arbol('Q');
-    arbolTernario->izqu->izqu->dere = new Arbol('X');
-    arbolTernario->izqu->med->izqu = new Arbol('H');
-    arbolTernario->med->izqu->izqu = new Arbol('M');
-    arbolTernario->med->izqu->dere = new Arbol('W');
-    arbolTernario->dere->izqu->izqu = new Arbol('L');
-    arbolTernario->dere->izqu->dere = new Arbol('S'); 
+    arbolTernario->izqu->izqu->med = new Arbol('U');
+    arbolTernario->izqu->izqu->dere = new Arbol('I');
+
+    arbolTernario->izqu->med->izqu = new Arbol('S');
+
+    arbolTernario->izqu->dere->izqu = new Arbol('P');
+    arbolTernario->izqu->dere->dere = new Arbol('E');
+
+
+    arbolTernario->med->izqu->izqu = new Arbol('C');
+    arbolTernario->med->dere->izqu = new Arbol('Z');
+
    
     cout<<"La altura del Arbol es :" <<obtenerAltura(arbolTernario);
     altura=obtenerAltura(arbolTernario);
@@ -127,4 +134,3 @@ int main() {
     return 0;
 
 }
-
