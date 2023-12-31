@@ -5,42 +5,10 @@
 
 using namespace std;
 Arbol* nodePadre;
-int n_nodos = 0;
 char caracter_padre = ' ';
 vector<Arbol*>hijos;
 Arbol* padre_= nullptr;
 
-void  nodosInternos(Arbol *raiz){
-  if (raiz == NULL) {
-    return;
-  }
-  if (raiz->izqu != NULL || raiz->dere != NULL || raiz->med !=NULL){
-    n_nodos++;
-  }
-
-  nodosInternos(raiz->izqu);
-  nodosInternos(raiz->med);
-  nodosInternos(raiz->dere);
-  
-}
-
-void nodosHoja(Arbol* raiz){
-  if (raiz == NULL) {
-    return;
-  }
-
-  if(raiz->izqu == NULL && raiz->dere == NULL && raiz->med == NULL){
-      n_nodos++;
-  }
-  nodosHoja(raiz->izqu);
-  nodosHoja(raiz->med);
-  nodosHoja(raiz->dere);
-
-}
-void nodos_totales(Arbol* raiz){
-  nodosHoja(raiz);
-  nodosInternos(raiz);
-}
 void padre_de(Arbol* raiz, char letra, Arbol* padre ) {
   if (raiz == NULL) {
 	return;
@@ -188,6 +156,5 @@ int main(){
     cout<<"Ingrese el nodo: ";
     cin>>node_buscar;
     cout<<"Busqueda primero por anchura"<<endl;
-    nodos_totales(arbolTernario); 
     BFS(arbolTernario,node_buscar);
 }
