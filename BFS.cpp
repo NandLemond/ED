@@ -7,8 +7,9 @@ using namespace std;
 Arbol* nodePadre;
 int n_nodos = 0;
 char caracter_padre = ' ';
-vector<char>hijos;
+vector<Arbol*>hijos;
 Arbol* padre_= nullptr;
+
 void  nodosInternos(Arbol *raiz){
   if (raiz == NULL) {
     return;
@@ -71,7 +72,7 @@ void node_inme(Arbol* raiz,Arbol* node,char x){
  }
 
   if(  aux == x && padre_!= NULL){
-      hijos.push_back(node->valor);
+      hijos.push_back(node);
 
       return;
   }
@@ -80,33 +81,76 @@ void node_inme(Arbol* raiz,Arbol* node,char x){
   node_inme(raiz,node->med,x);
   node_inme(raiz, node->dere,x);
 }
-void imprimirVector(const vector<char>& vec) {
-    cout << "Elementos del vector: ";
+void imprimirVector(const vector<Arbol*>& vec) {
+    cout << "marcado :";
     for (const auto& elemento : vec) {
-        std::cout << elemento << " ";
+        std::cout << elemento->valor << " ";
     }
     cout << endl;
 }
-void BFS(Arbol* Tree) {
+void imprimirCola(const queue<Arbol*>& cola) {
+    queue<Arbol*> copiaCola = cola;
+    cout<<"fila: ";
+    while (!copiaCola.empty()) {
+        cout << (copiaCola.front())->valor << " ";
+        copiaCola.pop();
+    }
+
+    cout << endl;
+}
+
+bool nodo_visitado(Arbol* hijo, vector<Arbol*> visited){
+    bool visitado = false;
+    for(const Arbol* item : visited){
+      if(item->valor == hijo->valor)
+	  visitado = true;
+    }
+    return visitado;
+}
+
+void BFS(Arbol* Tree,char valor_de_busq) {
     if (Tree == nullptr) {
         cout << "El árbol es nulo." << endl;
         return;
     }
+    if(valor_de_busq == Tree-> valor){
+	  cout<<valor_de_busq<<" es el nodo raiz del arbol"<<endl;
+	  return;
+	}
+
 
     queue<Arbol*> fila;
     vector<Arbol*> mark;
     mark.push_back(Tree);
     fila.push(Tree);
+    imprimirCola(fila);
+    imprimirVector(mark);
+    cout<<endl;
+    bool encontrado = false;
 
-    while (!fila.empty()) {
+    while (!fila.empty()&& !encontrado) {
+        hijos.clear();
         Arbol* node_x = fila.front();
         fila.pop();
-
-        if (node_x != nullptr) {
-            caracter_padre = node_x->valor;
-            node_inme(Tree, node_x, caracter_padre);
-            imprimirVector(hijos);
-        }
+        caracter_padre = node_x->valor;
+        node_inme(Tree, node_x, caracter_padre);
+      
+	for(const auto& elemento :hijos){
+	  if(elemento->valor == valor_de_busq){
+		cout<<node_x->valor<<"->"<<elemento->valor<<endl;
+		encontrado = true;
+		return;
+	  }
+	  if(!nodo_visitado(elemento,mark) && !encontrado){
+		fila.push(elemento);
+		mark.push_back(elemento);
+	  }
+	}
+	if(!encontrado){
+	  imprimirCola(fila);
+	  imprimirVector(mark);
+	  cout<<endl;
+	}
     }
 }
 
@@ -123,22 +167,27 @@ int main(){
     arbolTernario->izqu->dere = new Arbol('D');
 
     arbolTernario->med->izqu = new Arbol('O');
-    arbolTernario->med->dere = new Arbol('Z');
+    arbolTernario->med->dere = new Arbol('S');
 
-    arbolTernario->dere->izqu = new Arbol('Q');
-    arbolTernario->dere->dere = new Arbol('I');
+    arbolTernario->dere->izqu = new Arbol('U');
 
 
-    arbolTernario->izqu->izqu->izqu = new Arbol('B');
-    arbolTernario->izqu->izqu->dere = new Arbol('U');
+    arbolTernario->izqu->izqu->izqu = new Arbol('C');
+    arbolTernario->izqu->izqu->dere = new Arbol('W');
     
-    arbolTernario->izqu->dere->izqu = new Arbol('L');
+    arbolTernario->izqu->med->izqu = new Arbol('Q');
 
-    arbolTernario->dere->izqu->izqu = new Arbol('S');
-    arbolTernario->dere->izqu->dere = new Arbol('V');
+    arbolTernario->med->izqu->izqu = new Arbol('V');
+    arbolTernario->med->izqu->dere = new Arbol('Y');
 
 
-    arbolTernario->dere->izqu->izqu->izqu = new Arbol('P');
+    arbolTernario->dere->izqu->izqu = new Arbol('Z');
+    arbolTernario->dere->izqu->dere = new Arbol('X');
+
+    char node_buscar;
+    cout<<"Ingrese el nodo: ";
+    cin>>node_buscar;
+    cout<<"Busqueda primero por anchura"<<endl;
     nodos_totales(arbolTernario); 
-    BFS(arbolTernario);
+    BFS(arbolTernario,node_buscar);
 }
